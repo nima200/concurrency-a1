@@ -8,7 +8,7 @@ public class Drawer implements Runnable {
 
     private int aMaxRadius;
     private int aId;
-    private Circle aCircle;
+    private volatile Circle aCircle;
     private BufferedImage aImg;
     private Counter aCounter;
     private Drawer aOther;
