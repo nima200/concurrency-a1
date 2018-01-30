@@ -1,21 +1,23 @@
 package q1;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Counter {
-    private int aMax;
+    private AtomicInteger aMax;
 
     public Counter(int pMax) {
-        aMax = pMax;
+        aMax = new AtomicInteger(pMax);
     }
 
-    public synchronized boolean decrement() {
-        if (aMax > 0) {
-            aMax--;
-            return true;
-        }
-        return false;
+    public boolean decrement() {
+        return aMax.getAndDecrement() > 0;
+    }
+
+    public void increment() {
+        aMax.incrementAndGet();
     }
 
     public int getValue() {
-        return aMax;
+        return aMax.get();
     }
 }

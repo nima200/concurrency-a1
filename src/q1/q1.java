@@ -84,7 +84,8 @@ public class q1 {
 
     private static void twoThreads() throws InterruptedException {
         Counter c1 = new Counter(c);
-        Lock lock = new Lock();
+//        Lock lock = new Lock();
+        CircleLock lock = new CircleLock();
         Drawer d1 = new Drawer(r, 0, img, c1, lock);
         Drawer d2 = new Drawer(r, 1, img, c1, lock);
         d1.setOther(d2);

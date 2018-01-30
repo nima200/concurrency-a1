@@ -12,9 +12,10 @@ public class Drawer implements Runnable {
     private BufferedImage aImg;
     private Counter aCounter;
     private Drawer aOther;
-    private Lock aLock;
+    private CircleLock aLock;
+//    private Lock aLock;
 
-    public Drawer(int pMaxRadius, int pId, BufferedImage pImg, Counter pCounter, Lock pLock) {
+    public Drawer(int pMaxRadius, int pId, BufferedImage pImg, Counter pCounter, CircleLock pLock) {
         assert pImg != null;
         assert pCounter != null;
         assert pLock != null;
@@ -37,12 +38,9 @@ public class Drawer implements Runnable {
             Color c = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
             aCircle = new Circle(x, y, r, c);
             aCircle.fixBounds(width, height);
-            aLock.flagUp(aId);
-            aLock.setTurn(aId);
-            while (cantDraw()) {
+            while (aLock.overlap(aCircle, aOther.aCircle)) {
             }
             aCircle.draw(aImg);
-            aLock.flagDown(aId);
         }
     }
 
@@ -61,9 +59,5 @@ public class Drawer implements Runnable {
      */
     public boolean overlap(Drawer other) {
         return this.aCircle != null && other.aCircle != null && this.aCircle.intersects(other.aCircle);
-    }
-
-    private boolean cantDraw() {
-        return aLock.busy(aId) && overlap(aOther);
     }
 }
