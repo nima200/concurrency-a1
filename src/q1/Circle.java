@@ -24,7 +24,7 @@ public class Circle {
         return (distanceSquared <= r0plusR1 && distanceSquared >= r0minR1);
     }
 
-    public void draw(BufferedImage pImage) {
+    public void draw(Image pImage) {
         int rgb = aColor.getRGB();
         for (int i = -aRadius; i < aRadius; i++) {
             for (int j = -aRadius; j < aRadius; j++) {
@@ -32,7 +32,7 @@ public class Circle {
                 double yy = Math.pow(j, 2);
                 double rr = Math.pow(aRadius, 2);
                 if (xx + yy <= rr) {
-                    pImage.setRGB(x + i, y + j, rgb);
+                    pImage.setPixel(x + i, y + j, rgb);
                 }
             }
         }

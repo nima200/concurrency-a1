@@ -1,7 +1,6 @@
 package q1;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Drawer implements Runnable {
@@ -9,12 +8,12 @@ public class Drawer implements Runnable {
     private int aMaxRadius;
     private int aId;
     private volatile Circle aCircle;
-    private BufferedImage aImg;
+    private Image aImg;
     private Counter aCounter;
     private Drawer aOther;
     private Lock aLock;
 
-    public Drawer(int pMaxRadius, int pId, BufferedImage pImg, Counter pCounter, Lock pLock) {
+    public Drawer(int pMaxRadius, int pId, Image pImg, Counter pCounter, Lock pLock) {
         assert pImg != null;
         assert pCounter != null;
         assert pLock != null;
@@ -39,7 +38,7 @@ public class Drawer implements Runnable {
             aCircle.fixBounds(width, height);
             aLock.flagUp(aId);
             aLock.setTurn(aId);
-            while (cantDraw()) {
+            while (aLock.busy(aId) && overlap(aOther)) {
             }
             aCircle.draw(aImg);
             aLock.flagDown(aId);
@@ -61,9 +60,5 @@ public class Drawer implements Runnable {
      */
     public boolean overlap(Drawer other) {
         return this.aCircle != null && other.aCircle != null && this.aCircle.intersects(other.aCircle);
-    }
-
-    private boolean cantDraw() {
-        return aLock.busy(aId) && overlap(aOther);
     }
 }

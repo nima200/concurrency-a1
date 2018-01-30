@@ -70,6 +70,7 @@ public class q1 {
     private static void oneThread() {
         int i = 0;
         Random random = new Random();
+        Image image = new Image(width, height);
         while (i < c) {
             int radius = random.nextInt(r);
             int x = random.nextInt(width);
@@ -77,16 +78,18 @@ public class q1 {
             Color c = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
             Circle aCircle = new Circle(x, y, radius, c);
             aCircle.fixBounds(width, height);
-            aCircle.draw(img);
+            aCircle.draw(image);
             i++;
         }
+        img.setRGB(0, 0, width, height, image.getRGB(), 0, width);
     }
 
     private static void twoThreads() throws InterruptedException {
         Counter c1 = new Counter(c);
         Lock lock = new Lock();
-        Drawer d1 = new Drawer(r, 0, img, c1, lock);
-        Drawer d2 = new Drawer(r, 1, img, c1, lock);
+        Image image = new Image(width, height);
+        Drawer d1 = new Drawer(r, 0, image, c1, lock);
+        Drawer d2 = new Drawer(r, 1, image, c1, lock);
         d1.setOther(d2);
         d2.setOther(d1);
         Thread t1 = new Thread(d1);
@@ -97,5 +100,7 @@ public class q1 {
 
         t1.join();
         t2.join();
+
+        img.setRGB(0, 0, width, height, image.getRGB(), 0, width);
     }
 }
