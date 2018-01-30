@@ -81,6 +81,8 @@ public class q1 {
             aCircle.draw(image);
             i++;
         }
+
+        // Dump the image pixel data onto the BufferedImage
         img.setRGB(0, 0, width, height, image.getRGB(), 0, width);
     }
 
@@ -101,6 +103,7 @@ public class q1 {
         t1.join();
         t2.join();
 
+        // Dump the image pixel data onto the BufferedImage
         img.setRGB(0, 0, width, height, image.getRGB(), 0, width);
     }
 }
