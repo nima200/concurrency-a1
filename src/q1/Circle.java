@@ -38,7 +38,7 @@ public class Circle {
         }
     }
 
-    public synchronized void fixBounds(int width, int height) {
+    public void fixBounds(int width, int height) {
         if (x + aRadius >= width) {
             x = width - aRadius;
         }
