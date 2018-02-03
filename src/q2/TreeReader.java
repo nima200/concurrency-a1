@@ -1,12 +1,11 @@
 package q2;
 
-import org.jetbrains.annotations.NotNull;
-
 public class TreeReader extends Thread {
     private Node aRoot;
     private StringBuilder aBuilder;
 
-    public TreeReader(@NotNull Node pRoot) {
+    public TreeReader(Node pRoot) {
+        assert pRoot != null;
         aRoot = pRoot;
         aBuilder = new StringBuilder();
     }

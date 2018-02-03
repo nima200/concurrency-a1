@@ -1,7 +1,5 @@
 package q2;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Random;
 
 public class TreeModifier extends Thread {
@@ -9,7 +7,9 @@ public class TreeModifier extends Thread {
     private Node aRoot;
     private TreeReader[] aReaders;
 
-    public TreeModifier(@NotNull Node pRoot, @NotNull TreeReader[] pReaders) {
+    public TreeModifier(Node pRoot, TreeReader[] pReaders) {
+        assert pRoot != null;
+        assert pReaders != null;
         aRoot = pRoot;
         aReaders = pReaders;
     }

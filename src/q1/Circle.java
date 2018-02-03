@@ -16,12 +16,18 @@ public class Circle {
         this.aColor = pColor;
     }
 
-    public boolean intersects(Circle other) {
+    public boolean intersects(Circle other, Image pImage) {
         assert other != null;
-        double distanceSquared = Math.pow((this.x - other.x), 2) + Math.pow((this.y - other.y), 2);
-        double r0minR1 = Math.pow((this.aRadius - other.aRadius), 2);
-        double r0plusR1 = Math.pow((this.aRadius + other.aRadius), 2);
-        return (distanceSquared <= r0plusR1 && distanceSquared >= r0minR1);
+        assert pImage != null;
+        int dx = Math.abs(this.x - other.x);
+        int dy = Math.abs(this.y - other.y);
+        if (dx > pImage.getWidth() / 2)
+            dx = pImage.getWidth() - dx;
+        if (dy > pImage.getHeight() / 2)
+            dy = pImage.getHeight() / 2;
+        double sqrtDist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+        int r2r1 = this.aRadius + other.aRadius;
+        return sqrtDist - r2r1 <= 0;
     }
 
     public void draw(Image pImage) {
@@ -32,7 +38,9 @@ public class Circle {
                 double yy = Math.pow(j, 2);
                 double rr = Math.pow(aRadius, 2);
                 if (xx + yy <= rr) {
-                    pImage.setPixel(x + i, y + j, rgb);
+                    int pixelX = (x + i) % pImage.getWidth() < 0 ? (x + i) % pImage.getWidth() + pImage.getWidth() : (x + i) % pImage.getWidth();
+                    int pixelY = (y + j) % pImage.getHeight() < 0 ? (y + j) % pImage.getHeight() + pImage.getHeight() : (y + j) % pImage.getHeight();
+                    pImage.setPixel(pixelX, pixelY, rgb);
                 }
             }
         }

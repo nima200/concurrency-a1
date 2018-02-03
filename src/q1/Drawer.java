@@ -35,7 +35,7 @@ public class Drawer implements Runnable {
             int y = random.nextInt(height);
             Color c = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
             aCircle = new Circle(x, y, r, c);
-            aCircle.fixBounds(width, height);
+//            aCircle.fixBounds(width, height);
             aLock.flagUp(aId);
             aLock.setTurn(aId);
             while (aLock.busy(aId) && overlap(aOther)) {
@@ -59,6 +59,6 @@ public class Drawer implements Runnable {
      * @return True if there is an overlap, false otherwise
      */
     public boolean overlap(Drawer other) {
-        return this.aCircle != null && other.aCircle != null && this.aCircle.intersects(other.aCircle);
+        return this.aCircle != null && other.aCircle != null && this.aCircle.intersects(other.aCircle, aImg);
     }
 }
