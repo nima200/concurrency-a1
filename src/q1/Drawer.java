@@ -13,7 +13,7 @@ public class Drawer implements Runnable {
     private Drawer aOther;
     private Lock aLock;
 
-    public Drawer(int pMaxRadius, int pId, Image pImg, Counter pCounter, Lock pLock) {
+    Drawer(int pMaxRadius, int pId, Image pImg, Counter pCounter, Lock pLock) {
         assert pImg != null;
         assert pCounter != null;
         assert pLock != null;
@@ -34,19 +34,18 @@ public class Drawer implements Runnable {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
             Color c = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+            // Create a circle out of the random parameters
             aCircle = new Circle(x, y, r, c);
-//            aCircle.fixBounds(width, height);
+            // Show intention of drawing circle - Peterson's Algorithm
             aLock.flagUp(aId);
             aLock.setTurn(aId);
+            // Spin if someone else is already drawing a circle that overlaps with your circle
             while (aLock.busy(aId) && overlap(aOther)) {
             }
             aCircle.draw(aImg);
+            // Exit protocol - remove intentions of drawing
             aLock.flagDown(aId);
         }
-    }
-
-    public Circle getCircle() {
-        return aCircle;
     }
 
     public void setOther(Drawer pOther) {
@@ -58,7 +57,7 @@ public class Drawer implements Runnable {
      * @param other The other drawer
      * @return True if there is an overlap, false otherwise
      */
-    public boolean overlap(Drawer other) {
+    private boolean overlap(Drawer other) {
         return this.aCircle != null && other.aCircle != null && this.aCircle.intersects(other.aCircle, aImg);
     }
 }

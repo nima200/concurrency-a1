@@ -3,7 +3,7 @@ package q1;
 public class Counter {
     private int aMax;
 
-    public Counter(int pMax) {
+    Counter(int pMax) {
         aMax = pMax;
     }
 
@@ -13,9 +13,5 @@ public class Counter {
             return true;
         }
         return false;
-    }
-
-    public int getValue() {
-        return aMax;
     }
 }

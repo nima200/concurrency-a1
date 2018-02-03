@@ -1,21 +1,14 @@
 package q1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Image {
     private int[][] pixels;
-    public Image(int width, int height) {
+
+    Image(int width, int height) {
         pixels = new int[height][width];
     }
 
     public void setPixel(int x, int y, int c) {
         pixels[y][x] = c;
-    }
-
-    public int[][] getPixels() {
-        return pixels;
     }
 
     public int[] getRGB() {

@@ -1,10 +1,10 @@
 package q1;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Random;
-import javax.imageio.*;
 
 public class q1 {
 
@@ -77,7 +77,6 @@ public class q1 {
             int y = random.nextInt(height);
             Color c = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
             Circle aCircle = new Circle(x, y, radius, c);
-            aCircle.fixBounds(width, height);
             aCircle.draw(image);
             i++;
         }
