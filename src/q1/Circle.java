@@ -8,7 +8,7 @@ public class Circle {
     private int aRadius;
     private Color aColor;
 
-    public Circle(int x, int y, int radius, Color pColor) {
+    Circle(int x, int y, int radius, Color pColor) {
         this.x = x;
         this.y = y;
         this.aRadius = radius;
@@ -60,13 +60,5 @@ public class Circle {
                 }
             }
         }
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 }

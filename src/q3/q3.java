@@ -2,6 +2,7 @@ package q3;
 
 public class q3 {
     private static final Object object = new Object();
+    private static final Object threadObject = new Object();
     private static final double x = 5;
     private static Object dummy = new Object();
     private static int staticInt = 0;
@@ -67,8 +68,10 @@ public class q3 {
         long threadedVolatileEnd;
         for (int trial = 0; trial < 7; trial++) {
             Runnable volatileIncrementer = () -> {
-                for (int i = 0; i < Integer.MAX_VALUE / x; i++) {
-                    threadedVolatileInt++;
+                for (int i = 0; i < Integer.MAX_VALUE / (2 * x); i++) {
+                    synchronized (threadObject) {
+                        threadedVolatileInt++;
+                    }
                     dummy = new Object();
                 }
             };
